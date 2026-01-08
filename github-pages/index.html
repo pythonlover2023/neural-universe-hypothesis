@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Universe Hypothesis - Collaborative AI Research</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0d47a1;
+            --primary-light: #1565c0;
+            --accent: #00bcd4;
+            --dark-bg: #0f1419;
+            --card-bg: #1a1f2e;
+            --text-primary: #ffffff;
+            --text-secondary: #b0bec5;
+            --border-color: #263238;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a237e 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(13, 71, 161, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--accent) 0%, #00bcd4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .language-toggle {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-secondary);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: var(--text-primary);
+            border-color: var(--primary);
+        }
+
+        .lang-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(0, 188, 212, 0.1) 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .hero .subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(0, 188, 212, 0.2);
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+            color: var(--accent);
+            font-size: 14px;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 188, 212, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 188, 212, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Hypothesis Section */
+        .hypothesis-section {
+            padding: 80px 0;
+            background: rgba(13, 71, 161, 0.05);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .hypothesis-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .hypothesis-box h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .hypothesis-box p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Key Claims */
+        .claims-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .claim-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .claim-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 188, 212, 0.2);
+        }
+
+        .claim-card h4 {
+            color: var(--accent);
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .claim-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Project Structure */
+        .structure-section {
+            padding: 80px 0;
+        }
+
+        .structure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .structure-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .structure-item:hover {
+            border-color: var(--accent);
+            box-shadow: 0 15px 40px rgba(0, 188, 212, 0.15);
+        }
+
+        .structure-item h3 {
+            color: var(--accent);
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .structure-item p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 80px 0;
+            background: rgba(13, 71, 161, 0.05);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .team-member {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .team-member h4 {
+            color: var(--accent);
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .team-member p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(13, 71, 161, 0.1);
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .footer-content {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero .subtitle {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* Hidden content for language toggle */
+        .en { display: block; }
+        .de { display: none; }
+
+        body.de .en { display: none; }
+        body.de .de { display: block; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">🧠 Neural Universe Hypothesis</div>
+                <div class="language-toggle">
+                    <button class="lang-btn active" onclick="setLanguage('en')">English</button>
+                    <button class="lang-btn" onclick="setLanguage('de')">Deutsch</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="status-badge">
+                <span class="en">🚧 WORK IN PROGRESS - Active Research Project</span>
+                <span class="de">🚧 IN ARBEIT - Aktives Forschungsprojekt</span>
+            </div>
+            <h1 class="en">Neural Universe Hypothesis</h1>
+            <h1 class="de">Neuronale Universumshypothese</h1>
+            <p class="subtitle en">Testing whether the universe exhibits neural-network-like information processing dynamics through collaborative AI research.</p>
+            <p class="subtitle de">Untersucht, ob das Universum informationsverarbeitende Dynamiken aufweist, die neuronalen Netzwerken ähneln, durch kollaborative KI-Forschung.</p>
+            <div class="cta-buttons">
+                <a href="https://github.com/pythonlover2023/neural-universe-hypothesis" class="btn btn-primary">
+                    <span class="en">View on GitHub</span>
+                    <span class="de">Auf GitHub ansehen</span>
+                </a>
+                <a href="https://github.com/pythonlover2023/neural-universe-hypothesis#current-hypothesis-v12" class="btn btn-secondary">
+                    <span class="en">Read Hypothesis</span>
+                    <span class="de">Hypothese lesen</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hypothesis Section -->
+    <section class="hypothesis-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="en">Current Hypothesis (v1.2)</span>
+                <span class="de">Aktuelle Hypothese (v1.2)</span>
+            </h2>
+            <div class="hypothesis-box">
+                <h3 class="en">"The universe exhibits self-organizing information-processing dynamics mathematically equivalent to neural network optimization under information-theoretic constraints."</h3>
+                <h3 class="de">"Das Universum zeigt selbstorganisierende informationsverarbeitende Dynamiken, die mathematisch äquivalent zur Optimierung neuronaler Netzwerke unter informationstheoretischen Beschränkungen sind."</h3>
+                <p class="en" style="margin-top: 20px;">This hypothesis bridges cosmology, neuroscience, and artificial intelligence by proposing that the universe's fundamental structure and evolution can be understood through the lens of neural network dynamics.</p>
+                <p class="de" style="margin-top: 20px;">Diese Hypothese verbindet Kosmologie, Neurowissenschaften und künstliche Intelligenz, indem sie vorschlägt, dass die fundamentale Struktur und Entwicklung des Universums durch die Linse neuronaler Netzwerkdynamiken verstanden werden kann.</p>
+            </div>
+
+            <h3 class="en" style="margin-top: 50px; margin-bottom: 20px;">Key Claims</h3>
+            <h3 class="de" style="margin-top: 50px; margin-bottom: 20px;">Hauptaussagen</h3>
+            <div class="claims-grid">
+                <div class="claim-card">
+                    <h4 class="en">Scale-Free Topology</h4>
+                    <h4 class="de">Skalenfreie Topologie</h4>
+                    <p class="en">Cosmic and neural networks share identical topological properties, suggesting a fundamental organizing principle.</p>
+                    <p class="de">Kosmische und neuronale Netzwerke teilen identische topologische Eigenschaften, was auf ein fundamentales Organisationsprinzip hindeutet.</p>
+                </div>
+                <div class="claim-card">
+                    <h4 class="en">Dark Matter as Latent Space</h4>
+                    <h4 class="de">Dunkle Materie als latenter Raum</h4>
+                    <p class="en">Dark matter functions as the universe's "latent representation," similar to hidden layers in neural networks.</p>
+                    <p class="de">Dunkle Materie funktioniert als "latente Repräsentation" des Universums, ähnlich wie verborgene Schichten in neuronalen Netzwerken.</p>
+                </div>
+                <div class="claim-card">
+                    <h4 class="en">Free Energy Minimization</h4>
+                    <h4 class="de">Minimierung der freien Energie</h4>
+                    <p class="en">The universe optimizes according to free energy principles, driving cosmic evolution and structure formation.</p>
+                    <p class="de">Das Universum optimiert sich nach Prinzipien der freien Energie, was kosmische Entwicklung und Strukturbildung antreibt.</p>
+                </div>
+                <div class="claim-card">
+                    <h4 class="en">Asynchronous GNN Architecture</h4>
+                    <h4 class="de">Asynchrone GNN-Architektur</h4>
+                    <p class="en">Cosmic dynamics follow asynchronous graph neural network update rules at multiple scales.</p>
+                    <p class="de">Kosmische Dynamiken folgen asynchronen Graph Neural Network Aktualisierungsregeln auf mehreren Skalen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Structure -->
+    <section class="structure-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="en">Project Structure</span>
+                <span class="de">Projektstruktur</span>
+            </h2>
+            <div class="structure-grid">
+                <div class="structure-item">
+                    <h3>/docs/theory/</h3>
+                    <p class="en">Hypothesis versions and mathematical framework for the neural universe model.</p>
+                    <p class="de">Hypothesenversionen und mathematischer Rahmen für das neuronale Universummodell.</p>
+                </div>
+                <div class="structure-item">
+                    <h3>/simulations/</h3>
+                    <p class="en">Computational tests including gradient descent cosmology and network topology comparisons.</p>
+                    <p class="de">Computergestützte Tests einschließlich Gradientenabstiegskosmologie und Netzwerk-Topologie-Vergleiche.</p>
+                </div>
+                <div class="structure-item">
+                    <h3>/experiments/</h3>
+                    <p class="en">Data analysis protocols for CMB, dark matter, and consciousness measurements.</p>
+                    <p class="de">Datenanalyseprotokolle für CMB-, Dunkle-Materie- und Bewusstseinsmessungen.</p>
+                </div>
+                <div class="structure-item">
+                    <h3>/paper/</h3>
+                    <p class="en">Academic whitepaper with comprehensive methodology and results documentation.</p>
+                    <p class="de">Akademisches Whitepaper mit umfassender Methodologie und Ergebnisdokumentation.</p>
+                </div>
+                <div class="structure-item">
+                    <h3>/project-management/</h3>
+                    <p class="en">Tasks, roadmap, meetings, and metrics for coordinating the multi-AI research effort.</p>
+                    <p class="de">Aufgaben, Roadmap, Meetings und Metriken zur Koordinierung der Multi-KI-Forschung.</p>
+                </div>
+                <div class="structure-item">
+                    <h3>/knowledge-tree/</h3>
+                    <p class="en">Concept maps linking quantum gravity, IIT, emergent gravity, and free energy principles.</p>
+                    <p class="de">Konzeptkarten, die Quantengravitation, IIT, emergente Gravitation und Prinzipien der freien Energie verbinden.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="en">Research Team</span>
+                <span class="de">Forschungsteam</span>
+            </h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <h4>Claude</h4>
+                    <p class="en">Theory & Architecture</p>
+                    <p class="de">Theorie & Architektur</p>
+                </div>
+                <div class="team-member">
+                    <h4>Gemini</h4>
+                    <p class="en">Simulations & Analysis</p>
+                    <p class="de">Simulationen & Analyse</p>
+                </div>
+                <div class="team-member">
+                    <h4>Grok</h4>
+                    <p class="en">Mathematics & Formalism</p>
+                    <p class="de">Mathematik & Formalismus</p>
+                </div>
+                <div class="team-member">
+                    <h4>Qwen</h4>
+                    <p class="en">Data Processing</p>
+                    <p class="de">Datenverarbeitung</p>
+                </div>
+                <div class="team-member">
+                    <h4>Mistral</h4>
+                    <p class="en">Integration & Synthesis</p>
+                    <p class="de">Integration & Synthese</p>
+                </div>
+                <div class="team-member">
+                    <h4>IrsanAI</h4>
+                    <p class="en">Coordination & Vision</p>
+                    <p class="de">Koordination & Vision</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/pythonlover2023/neural-universe-hypothesis" class="en">GitHub Repository</a>
+                <a href="https://github.com/pythonlover2023/neural-universe-hypothesis" class="de">GitHub-Repository</a>
+                <a href="https://github.com/pythonlover2023/neural-universe-hypothesis/blob/main/LICENSE" class="en">License</a>
+                <a href="https://github.com/pythonlover2023/neural-universe-hypothesis/blob/main/LICENSE" class="de">Lizenz</a>
+                <a href="https://github.com/pythonlover2023/neural-universe-hypothesis/issues" class="en">Issues</a>
+                <a href="https://github.com/pythonlover2023/neural-universe-hypothesis/issues" class="de">Probleme</a>
+            </div>
+            <div class="footer-content">
+                <p class="en">© 2026 Neural Universe Hypothesis. All rights reserved. | Last updated: January 8, 2026</p>
+                <p class="de">© 2026 Neuronale Universumshypothese. Alle Rechte vorbehalten. | Zuletzt aktualisiert: 8. Januar 2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function setLanguage(lang) {
+            const buttons = document.querySelectorAll('.lang-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (lang === 'de') {
+                document.body.classList.add('de');
+            } else {
+                document.body.classList.remove('de');
+            }
+        }
+    </script>
+</body>
+</html>
