@@ -364,12 +364,18 @@
             }
         }
 
-        /* Hidden content for language toggle */
+        /* Language toggle visibility */
         .en { display: block; }
         .de { display: none; }
 
         body.de .en { display: none; }
         body.de .de { display: block; }
+        
+        /* Ensure inline spans behave correctly */
+        span.en { display: inline; }
+        span.de { display: none; }
+        body.de span.en { display: none; }
+        body.de span.de { display: inline; }
     </style>
 </head>
 <body>
@@ -378,8 +384,8 @@
             <div class="header-content">
                 <div class="logo">🧠 Neural Universe Hypothesis</div>
                 <div class="language-toggle">
-                    <button class="lang-btn active" onclick="setLanguage('en')">English</button>
-                    <button class="lang-btn" onclick="setLanguage('de')">Deutsch</button>
+                    <button id="btn-en" class="lang-btn active" onclick="setLanguage('en')">English</button>
+                    <button id="btn-de" class="lang-btn" onclick="setLanguage('de')">Deutsch</button>
                 </div>
             </div>
         </div>
@@ -550,22 +556,25 @@
                 <a href="https://github.com/pythonlover2023/neural-universe-hypothesis/issues" class="de">Probleme</a>
             </div>
             <div class="footer-content">
-                <p class="en">© 2026 Neural Universe Hypothesis. All rights reserved. | Last updated: January 8, 2026</p>
-                <p class="de">© 2026 Neuronale Universumshypothese. Alle Rechte vorbehalten. | Zuletzt aktualisiert: 8. Januar 2026</p>
+                <p class="en">© 2026 Neural Universe Hypothesis. All rights reserved. | Last updated: January 11, 2026</p>
+                <p class="de">© 2026 Neuronale Universumshypothese. Alle Rechte vorbehalten. | Zuletzt aktualisiert: 11. Januar 2026</p>
             </div>
         </div>
     </footer>
 
     <script>
         function setLanguage(lang) {
-            const buttons = document.querySelectorAll('.lang-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
+            const btnEn = document.getElementById('btn-en');
+            const btnDe = document.getElementById('btn-de');
+            
             if (lang === 'de') {
                 document.body.classList.add('de');
+                btnDe.classList.add('active');
+                btnEn.classList.remove('active');
             } else {
                 document.body.classList.remove('de');
+                btnEn.classList.add('active');
+                btnDe.classList.remove('active');
             }
         }
     </script>
